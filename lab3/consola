@@ -1,0 +1,9 @@
+-- Para dar permiso a todos los usuarios de lectura --
+sudo chmod a+r /var/log/account/pacct
+
+-- Para iniciar el dimoni de lastcomm --
+sudo accton on
+
+-- La comanda -- 
+lastcomm
+
