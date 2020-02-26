@@ -1,3 +1,4 @@
+[//]: <> (abdevcode)
 # gsx-sistemas
 
 ##### Clonar el repositorio
@@ -34,5 +35,4 @@
 ##### Visualizar todos los commits graficamente 
 `gitk --all --date-order &`
 
-# hola
-[//]: <> (This is also a comment.)
+
