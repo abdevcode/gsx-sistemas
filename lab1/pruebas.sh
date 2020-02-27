@@ -13,7 +13,7 @@ fi
 $(mkdir "$carpeta_test")
 
 for (( i=1; i<=$n_dir; i++ )); do  
-    dir="dird$i/"
+    dir="dir d$i/"
     usuario=$(( RANDOM % 8 ))
     grupo=$(( RANDOM % 8 ))
     otro=$(( RANDOM % 8 ))
@@ -27,7 +27,7 @@ for (( i=1; i<=$n_dir; i++ )); do
 	echo $dirpath
 
     for (( j=1; j<=$n_files_dir; j++ )); do  
-        file="fitf$j.txt"
+        file="fit f$j.txt"
         file_usuario=$(( RANDOM % 8 ))
         file_grupo=$(( RANDOM % 8 ))
         file_otro=$(( RANDOM % 8 ))

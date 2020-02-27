@@ -27,7 +27,7 @@ else
 		#for read path; do
 			
 			#echo "path: $path"
-			if [ -e ${path} ]; then
+			if [ -e $path ]; then
 				propietari=$(stat "$path" --printf=%U)
 				#echo "Propietari: $propietari"
 
@@ -37,7 +37,7 @@ else
 				perm=$(stat "$path" --printf=%a)
 				#echo "Permisos: $perm"
 
-				echo "\"$path\" $propietari $grup $perm"
+				echo "$path $propietari $grup $perm"
 			else
 				echo "Error: No existe dir/fit de la path: $path" >&2 
 			fi
