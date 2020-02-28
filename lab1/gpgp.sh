@@ -29,13 +29,8 @@ else
 			#echo "path: $path"
 			if [ -e $path ]; then
 				propietari=$(stat "$path" --printf=%U)
-				#echo "Propietari: $propietari"
-
 				grup=$(stat "$path" --printf=%G)
-				#echo "Grup: $grup"
-
 				perm=$(stat "$path" --printf=%a)
-				#echo "Permisos: $perm"
 
 				echo "$path $propietari $grup $perm"
 			else
