@@ -22,12 +22,12 @@ mkdir "/back/$DATE"
 #Busquem als directoris
 
 directori_busca="/usr"
-contador=0
+contador=1
 echo "S'esta buscant els fitxers que han sigut modificats..."
 
 while [ $contador -lt 2 ]; do
-	for ruta in $(find $directori_busca \! -name ".*");do
-		#echo "\"$ruta\"" 
+	for ruta in $(find $directori_busca -type d -name ".*" -prune -o -type f \! -name ".*" -print);do
+		 
 		if [ -f $ruta ]; then
 			data=$((stat -c  %y $ruta) | awk '{print $1}') 
 			any=${data:0:4}
