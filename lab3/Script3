@@ -1,0 +1,42 @@
+#! /bin/bash
+
+#Autors:
+#- Abderrahim Talhaoui
+#- Oriol Manzanero Perez
+#- Ramon Donadeu Caballero
+
+#Data: 2/03/2020 
+#Versio: 1.2
+#Que fa l'script bla bla bla
+echo "Els processos creats entre les 13.00 i les 15.00 son:"
+echo " COMANDA -- USUARI"
+h_inici=12
+h_fi=15
+
+#Obtinc els processos que 
+IFS=$'\n'
+i=0
+for proces in $(lastcomm); do
+	#Conto quantes paraules te la resposta
+	paraules=$(echo $proces | wc -w )
+	#Depenent de les paraules que tingui haure d'agafar de diferents posicions
+	inici=$(echo $proces | awk -v final="$paraules" '{print $final}')
+	let paraules=$paraules-7
+	usuari=$(echo $proces | awk -v pos_usu="$paraules" '{print $pos_usu}')	
+	#M'he de saltar el primer perque es la guia
+	
+	if [ $i -gt 0 ]; then
+		hora=${inici:0:2}
+		minut=${inici:3:5}
+		if [ $hora -gt $h_inici ]; then 
+			if [ $hora -lt $h_fi ]; then 
+				#Si hem entrat aqui el proces s'ha creat al marge especificat
+				comanda=$(echo $proces | awk '{print $1}')
+				echo $inici
+				echo "$comanda -- $usuari"
+			fi
+		fi
+	fi
+	let i=$i+1
+done
+
