@@ -32,11 +32,7 @@ else
 			let end=$end+1
 			dep=$(echo $usuari | cut -d':' -f $ini-$end)
 
-			echo "$dni - $nom - $tlf - $dep"
-			info="Nom: $nom, Telefon: $tlf"
-			mkdir -p "/usuarios/$dep"
-			mkdir -p "/usuarios/$dep/$dni"
-			useradd $dni -d /usuarios/$dep/$dni -c "$nom, $tlf"
+			useradd -m $dni -d /usuarios/$dep/$dni -c "$nom, $tlf"
 		done
 	else 
 		echo "Error: no existe el fichero especificado por parametro." >&2
