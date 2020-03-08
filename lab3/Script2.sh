@@ -24,11 +24,12 @@ for proces in $(ps -eo pid,time); do
 		minuts=${temps:3:2}
 		if [ $minuts -gt 2 ]; then
 			#Si estem aqui el procés ha durat més de 3 minuts
-			resultat=$(grep -r $pid f_parats)
-			if [ $resultat -eq $pid ]; then
-				#Si estem aqui ja l'hem parat abans
+			resultat=$(grep $pid f_parats)
+			if [ ! $? -eq 0 ]; then
+				#Si estem aqui no l'hem parat abans
+				kill -15 $pid
+				echo $pid >> f_parats
 			fi
-			kill -15 $pid
 		fi
 	fi
 	let i=$i+1
