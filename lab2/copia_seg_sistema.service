@@ -1,0 +1,26 @@
+# Este es un archivo unit y aqui se debe colocar el script a ejecutar 
+# Instrucciones de uso:
+# 1) Este script tiene que estar ubicado en "/etc/systemd/system/"
+#    1. sudo cp copia_seg_sistema.service /etc/systemd/system/copia_seg_sistema.service
+#    2. sudo chmod 644 /etc/systemd/system/copia_seg_sistema.service
+#
+# 2) Una vez guardado el fichero, hay que aplicar los cambios en Systemd
+#    reiniciando el demonio y activando el servicio
+#
+#    Ejecutar las siguientes instrucciones en consola:
+#    1. systemctl daemon-reload
+#    2. systemctl enable <script>
+#    3. systemctl start <script> 
+
+[Unit]
+Description="Copia de seguretat dels fitxers modificats des de l'inici del sistema"
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStop=/usr/bin/copia_seg_sistema.sh
+
+[Install]
+WantedBy=multi-user.target
