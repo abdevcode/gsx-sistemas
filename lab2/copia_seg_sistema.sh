@@ -53,6 +53,8 @@ for directori_busca in $dir_save; do
 			if [ $udate_file -gt $udate_start ]; then
 				echo $ruta >> "$dir_back_temp/paths.txt"
 				cp "$ruta" "$dir_back_temp"
+
+				# fer tar directament -T 
 			fi 
 		fi
 	done
@@ -62,16 +64,9 @@ done
 #Executem el script per guardar els permisos i tal i ho redirigim a un fitxer de text
 . gpgp.sh "$dir_back_temp/paths.txt" >> "$dir_back_temp/gpgp.out"
 
-#Copiem la resta dels fitxers a la carpeta
-# cp paths.txt /back/$DATE/paths.txt
-# cp resultat.txt /back/$DATE/resultat.txt
-#Ens movem a la zona on esta el backup
-#cd /back
 #comprimim en tgz
 echo "tar -czvf "$dir_back_date.tar.gz" "$dir_back_temp""
 tar -czvf "$dir_back_date.tar.gz" "$dir_back_temp"
-#Esborrem la carpeta anterior per deixar nomes el fitxer comprimit
-#rm -r $DATE
-#rm -r "$dir_back_temp"
+
 
 

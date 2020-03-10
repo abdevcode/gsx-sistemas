@@ -1,0 +1,14 @@
+sudo debugfs /dev/sda5 -w
+	show_super_stats
+
+bind / softlink
+
+
+
+# Pregunta 1:
+sudo swapon # veure les particions de swap que tenim
+sudo swapoff /dev/sda6 # desactivar la particio 
+sudo mkfs /dev/sda6 -t ext2 # formatar una particio
+
+sudo mkfs.ext2 /dev/sda5 -m 10 -d /home
+
