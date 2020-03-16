@@ -32,26 +32,30 @@ else
 					;;
 				3)  #Agafem els treballadors del projecte
 					treb=$(echo $info)
-					#Busquem la carpeta del director del projecte per crear la carpeta del projecte
+					#Busquem la carpeta del director del projecte per crear la 						carpeta del projecte
 					usr=$(grep $dnicap /etc/passwd)
 					direccio=$(echo $usr | cut -d':' -f 6)
 					#Creem la carpeta /$direccio/$nomprj
 					cd $direccio				
-					mkdir $nomprj
-					cd $nomprj
+					mkdir -p $nomprj
 					#Creem el grup
-					groupadd $nomprj
+					groupadd -f $nomprj
 					#Afegim el cap del projecte al grup
 					usermod -a -G $nomprj $dnicap
 					#Afegim els demes membres al grup
 					#Cambiar el grup del fitxer
 					direccio="$direccio/$nomprj"
 					chgrp $nomprj $direccio
+					#Afegim tots els treballadors al grup
+					IFS=","
+					for usuari in $treb; do
+						usermod -a -G $nomprj $usuari
+					done		
 					;;
 				*)				
 			esac
 			let count=$count+1
-			
+			IFS=$'\n'			
 		done
 	else 
 		echo "Error: no existe el fichero especificado por parametro." >&2
