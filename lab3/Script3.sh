@@ -7,7 +7,11 @@
 
 #Data: 2/03/2020 
 #Versio: 1.2
-#Que fa l'script bla bla bla
+
+# Volem saber el nom de la comanda i el nom de l’usuari que han
+#generats els processos que han estat engegats entre les 13:00 i les
+#14:5
+
 echo "Els processos creats entre les 13.00 i les 15.00 son:"
 echo " COMANDA -- USUARI"
 

@@ -7,7 +7,10 @@
 
 #Data: 8/03/2020 
 #Versio: 1.0
-#Que fa l'script bla bla bla
+
+#Script que  atura els processos que han consumit més de 3 minuts de
+#cpu cada hora des de les 10 del matí a les 8 de la tarda, creant un
+#fitxer on anirem acumulant els PIDs dels processos aturat
 
 #Creem el fitxer si no existeix
 if [ ! -f f_parats ]; then

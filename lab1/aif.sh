@@ -8,7 +8,7 @@
 #Data: 15/02/2020 
 #Versio: 1
 
-#Que fa l'script bla bla bla
+# Script que configura el fitxer /etc/network/interfaces.
 
 #Verificacio de les opcions i dels parametres
 if [ $# -ne 5 ]; then 

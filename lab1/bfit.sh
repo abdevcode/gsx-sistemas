@@ -8,7 +8,7 @@
 #Data: 15/02/2020 
 #Versio: 1
 
-#Que fa l'script bla bla bla
+#Script que buidia un fitxer passat per paràmetre.
 
 #Verificacio de les opcions i dels parametres 
 if [ $# -eq 0 ]; then 
