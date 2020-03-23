@@ -1,19 +1,5 @@
 #! /bin/bash
 
-#Autors:
-#- Abderrahim Talhaoui
-#- Oriol Manzanero Perez
-#- Ramon Donadeu Caballero
-
-#Data: 2/03/2020 
-#Versio: 1.0
-
-#Script que dona d'alta el projecte i
-#totes les accions necessàries perquè els treballadors puguin començar
-#a treballar amb ell. Aquest script rebrà per paràmetre un fitxer on el
-#nom serà l'identificadors del projecte, i el seu contingut les dades del
-#projecte.
-
 #Verificacio de les opcions i dels parametres 
 if [ $# -eq 0 ]; then 
 	#Treiem error per canal stderr 
@@ -45,8 +31,10 @@ else
 			let ini=$end+1
 			let end=$end+1
 			dep=$(echo $usuari | cut -d':' -f $ini-$end)
-
-			useradd -m $dni -d /usuarios/$dep/$dni -c "$nom, $tlf"
+			if [ ! -d /usuarios/$dep ];then
+				mkdir -p "/usuarios/$dep"	
+			fi
+			useradd -m $dni -d /usuarios/$dep/$dni -c "$nom, $tlf" -k /etc/skel
 		done
 	else 
 		echo "Error: no existe el fichero especificado por parametro." >&2

@@ -1,27 +1,21 @@
 #! /bin/bash
 
-#Autors:
-#- Abderrahim Talhaoui
-#- Oriol Manzanero Perez
-#- Ramon Donadeu Caballero
-
-#Data: 2/03/2020 
-#Versio: 1.0
-
-#Script que dona d'alta els
-#usuaris que estan al fitxer que passarem per paràmetre
-
 #Verificacio de les opcions i dels parametres 
 if [ $# -eq 0 ]; then 
 	#Treiem error per canal stderr 
 	echo "Error: sin parametros." >&2
 else
 	mkdir -p "/usuarios"
+	mkdir -p "/projectes"
+	mkdir -p "/projectes/enestudi"
+	mkdir -p "/projectes/encurs"
+	mkdir -p "/projectes/finalitzats"
 
 	fitxer=$1
 	count=0
 	mod=4
 	#Validar que existeix el fitxer
+	echo $fitxer
 	if [ -f $fitxer ]; then
 		#Separador de camp (IFS) - per assignar car especials amb $''
 		IFS=$'\n'
@@ -42,11 +36,8 @@ else
 					dnicap=$(echo $info)
 					;;
 				3)  #Agafem els treballadors del projecte
-					treb=$(echo $info)
-					#Busquem la carpeta del director del projecte per crear la 						carpeta del projecte
-					usr=$(grep $dnicap /etc/passwd)
-					direccio=$(echo $usr | cut -d':' -f 6)
-					#Creem la carpeta /$direccio/$nomprj
+					direccio="/projectes/enestudi"
+					treb=$(echo $info)					
 					cd $direccio				
 					mkdir -p $nomprj
 					#Creem el grup
