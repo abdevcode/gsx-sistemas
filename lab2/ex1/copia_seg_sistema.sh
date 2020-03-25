@@ -7,9 +7,6 @@
 #    2. sudo chmod +x /usr/bin/copia_seg_sistema.sh
 
 
-
-
-
 # Es vol programar un servei que s'executi al aturar el sistema, aquest script 
 # ha de crear un fitxer amb el path absolut dels fitxers modificats des de l’última 
 # vegada que es va engegar el sistema  que estiguin sota dels directoris /usr i del /home, 
@@ -21,19 +18,15 @@
 # que s'ha fet la còpia en el format: 'aammddhhmm'. Aquesta servei el volem fer seguint el 
 # format de serveis systemd.
 
-
-
 # Crear la carpeta de las copias de seguridad
-
 mkdir -p "/back" # -p : Crea els directoris pare necessaris, sense mostrar errors si aquests ja existeixen.
 date_act=$(date '+%y%m%d%H%M')
 dir_back_date="/back/$date_act"
 dir_back_temp="/back/temp"
-#mkdir $dir_back_date
 mkdir $dir_back_temp
 
-
-
+# Creamos el fichero donde vamos a guardar la copia de seguretat
+tar -T -rf "$dir_back_date.tar.gz"
 
 
 # Para saber la fecha actual
@@ -42,7 +35,7 @@ udate_start=$(date -d "$up_time" +%s) # Hora UNIX de la fecha
 
 # Directorios que queremos guardar separados por espacio en blanco
 #dir_save="/usr /home"
-dir_save="/home"
+dir_save="/test"
 
 for directori_busca in $dir_save; do
 	for ruta in $(find $directori_busca -type d -name ".*" -prune -o -type f \! -name ".*" -print); do
@@ -52,21 +45,16 @@ for directori_busca in $dir_save; do
 			
 			if [ $udate_file -gt $udate_start ]; then
 				echo $ruta >> "$dir_back_temp/paths.txt"
-				cp "$ruta" "$dir_back_temp"
-
-				# fer tar directament -T 
+				tar -rf "$dir_back_date.tar.gz" $ruta
 			fi 
 		fi
 	done
 done
 
-
-#Executem el script per guardar els permisos i tal i ho redirigim a un fitxer de text
+# Executem el script per guardar els permisos i tal i ho redirigim a un fitxer de text
 . gpgp.sh "$dir_back_temp/paths.txt" >> "$dir_back_temp/gpgp.out"
 
-#comprimim en tgz
-echo "tar -czvf "$dir_back_date.tar.gz" "$dir_back_temp""
-tar -czvf "$dir_back_date.tar.gz" "$dir_back_temp"
-
-
+# Comprimimos los ficheros generados 
+tar -C "$dir_back_temp/" -rf "$dir_back_date.tar.gz" "paths.txt" "gpgp.out"
+rm -r "$dir_back_temp/"
 
