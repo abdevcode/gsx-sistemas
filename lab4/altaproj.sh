@@ -42,6 +42,7 @@ else
 					mkdir -p $nomprj
 					#Creem el grup
 					groupadd -f $nomprj
+					echo $nomprj:"grouppassword" | chgpasswd
 					#Afegim el cap del projecte al grup
 					usermod -a -G $nomprj $dnicap
 					#Afegim els demes membres al grup

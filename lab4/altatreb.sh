@@ -35,6 +35,7 @@ else
 				mkdir -p "/usuarios/$dep"	
 			fi
 			useradd -m $dni -d /usuarios/$dep/$dni -c "$nom, $tlf" -k /etc/skel
+			echo $dni:"password" | chpasswd
 		done
 	else 
 		echo "Error: no existe el fichero especificado por parametro." >&2
