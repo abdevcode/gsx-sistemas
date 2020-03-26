@@ -8,14 +8,20 @@
 # Description:       Volem fer un servei que quan engeguem el sistema restauri els fitxers tal com el 
 #                    teníem abans de la parada. Usant els fitxers creats en l'script anterior. 
 #                    Per a fer aquest servei volem usar els serveis en format systemV
-#		     https://gist.github.com/naholyr/4275302
+#		     Fuente: https://gist.github.com/naholyr/4275302
 #
 #	> Para listas los servicios: sudo service --status-all
 #	> Para ver el nivel de ejec: sudo runlevel
+#
+#	<< INSTALACION DEL SCRIPT EN SYSTEM-V INIT >>
+#	Copiar en init.d y darle permisos de ejecucion:
+#		- cp "restaura_copia_seg" "/etc/init.d/restaura_copia_seg"
+#		- chmod +x /etc/init.d/restaura_copia_seg
+#	Testear el servicio (puede ser necesario un reinicio):
+#		- service restaura_copia_seg start
+#	Hacer que el script se ejecute en el boot-time:
+#		- update-rc.d restaura_copia_seg defaults
 ### END INIT INFO
-
-#SCRIPT=/home/milax/Documents/gsx-sistemas/lab2/ext2/restaura_copia_seg.sh
-#RUNAS="root"
 
 PIDFILE=/var/run/restaura_copia_seg.pid
 LOGFILE=/var/log/restaura_copia_seg.log
