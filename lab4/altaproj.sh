@@ -15,7 +15,6 @@ else
 	count=0
 	mod=4
 	#Validar que existeix el fitxer
-	echo $fitxer
 	if [ -f $fitxer ]; then
 		#Separador de camp (IFS) - per assignar car especials amb $''
 		IFS=$'\n'
@@ -53,7 +52,10 @@ else
 					IFS=","
 					for usuari in $treb; do
 						usermod -a -G $nomprj $usuari
-					done		
+					done
+					chown $dnicap $direccio		
+					chmod 775 $direccio
+					setfacl -Rdm o::--x $direccio	
 					;;
 				*)				
 			esac

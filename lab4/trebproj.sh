@@ -6,7 +6,6 @@ if [ $# -eq 0 ]; then
 	echo "Error: sin parametros." >&2
 else
 	direccio=$(find /projectes -type d -name $1)
-	echo $direccio
 	if [ -z $direccio ]; then
 		echo "Error: no existe el grupo especificado por parametro." >&2
 	else 
