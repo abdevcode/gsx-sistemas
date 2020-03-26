@@ -10,14 +10,8 @@ else
 	if [ -z $direccio ]; then
 		echo "Error: no existe el grupo especificado por parametro." >&2
 	else 
-		cd "$direccio"
-		touch proba.txt
-		echo $USER $(id -g milax)
-		save=$(id -g milax)
-		echo $save
-		newgrp - $1 $milax
-		echo $USER $(id -g milax)
-		
+		cd $direccio
+		time newgrp $1
 	fi
 fi
 
