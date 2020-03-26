@@ -9,63 +9,126 @@
 #                    teníem abans de la parada. Usant els fitxers creats en l'script anterior. 
 #                    Per a fer aquest servei volem usar els serveis en format systemV
 #		     https://gist.github.com/naholyr/4275302
+#
+#	> Para listas los servicios: sudo service --status-all
+#	> Para ver el nivel de ejec: sudo runlevel
 ### END INIT INFO
 
-SCRIPT=<COMMAND>
-RUNAS="root"
+#SCRIPT=/home/milax/Documents/gsx-sistemas/lab2/ext2/restaura_copia_seg.sh
+#RUNAS="root"
 
 PIDFILE=/var/run/restaura_copia_seg.pid
 LOGFILE=/var/log/restaura_copia_seg.log
 
 start() {
-  if [ -f /var/run/$PIDNAME ] && kill -0 $(cat /var/run/$PIDNAME); then
-    echo 'Service already running' >&2
-    return 1
-  fi
-  echo 'Starting service…' >&2
-  local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
-  su -c "$CMD" $RUNAS > "$PIDFILE"
-  echo 'Service started' >&2
+	if [ -f /var/run/$PIDNAME ] && kill -0 $(cat /var/run/$PIDNAME); then
+		echo 'Service already running' >&2
+		return 1
+	fi
+
+	echo 'Starting service…' >&2
+
+
+
+#  local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
+#  su -c "$CMD" $RUNAS > "$PIDFILE"
+
+	fit_paths="paths.txt"
+	fit_gpgp="gpgp.out"
+	fit_rpgp="rpgp.out"
+	dir_back="/back"
+
+	# Obtenemos la copia de seguridad mas reciente 
+	tar_back=$(ls -Art "$dir_back" | tail -n 1)
+
+	# Descomprimimos el fichero paths.txt
+	tar -xf "$dir_back/$tar_back" "$fit_paths" 
+
+	# Descomprimimos el fichero gpgp.out
+	#tar -xf "$dir_back/$tar_back" "$fit_gpgp" 
+
+	# Validamos que los ficheros existen
+	if [ ! -f "$fit_gpgp" ]; then
+		echo "Error: no existe el fichero $fit_gpgp." >&2
+		exit 1
+	fi
+
+	if [ ! -f "$fit_paths" ]; then
+		echo "Error: no existe el fichero $fit_paths." >&2
+		exit 1
+	fi
+
+	# Primero vamos a descomprimir y ubicar todos los ficheros donde estaban
+	# Separador de camp (IFS) - per assignar car especials amb $''
+	IFS=$'\n'
+	# Obtenir les dades per cada ruta especificada en el fitxer		
+	# >> for path in $(cat "$fit_paths"); do
+	while IFS= read -r path; do
+		echo $path
+		# Quitamos la '/' inicial
+		cut_path=$(echo $path | cut -c2-)
+		
+		directory=$(dirname "$path")
+		# Validar/crear los directorios donde ira el fichero 
+		if [ ! -d "$directory" ]; then
+			mkdir -p "$directory"
+			echo "Creamos el directorio"
+		fi
+
+		# Descomprimimos el fichero en el directorio
+		tar -C / -xf "$dir_back/$tar_back" "$cut_path"
+	# >> done
+	done < "$fit_paths"
+
+	# Ejecutamos el script rpgp.sh para restaurar permisos, propietario y grupo
+	# No usamos el '.' porque no queremos salir de este script si se hace un exit en el script rpgp.sh
+	$(./rpgp.sh "$fit_gpgp" "si" > "$fit_rpgp")
+
+	rm "$fit_paths"
+	#rm "$fit_gpgp"
+
+	echo 'Service started' >&2
 }
 
 stop() {
-  if [ ! -f "$PIDFILE" ] || ! kill -0 $(cat "$PIDFILE"); then
-    echo 'Service not running' >&2
-    return 1
-  fi
-  echo 'Stopping service…' >&2
-  kill -15 $(cat "$PIDFILE") && rm -f "$PIDFILE"
-  echo 'Service stopped' >&2
+	if [ ! -f "$PIDFILE" ] || ! kill -0 $(cat "$PIDFILE"); then
+		echo 'Service not running' >&2
+		return 1
+	fi
+
+	echo 'Stopping service…' >&2
+	kill -15 $(cat "$PIDFILE") && rm -f "$PIDFILE"
+	echo 'Service stopped' >&2
 }
 
 uninstall() {
-  echo -n "Are you really sure you want to uninstall this service? That cannot be undone. [yes|No] "
-  local SURE
-  read SURE
-  if [ "$SURE" = "yes" ]; then
-    stop
-    rm -f "$PIDFILE"
-    echo "Notice: log file is not be removed: '$LOGFILE'" >&2
-    update-rc.d -f restaura_copia_seg remove
-    rm -fv "$0"
-  fi
+	echo -n "Are you really sure you want to uninstall this service? That cannot be undone. [yes|No] "
+	local SURE
+	read SURE
+	if [ "$SURE" = "yes" ]; then
+		stop
+		rm -f "$PIDFILE"
+		echo "Notice: log file is not be removed: '$LOGFILE'" >&2
+		update-rc.d -f restaura_copia_seg remove
+		rm -fv "$0"
+	fi
 }
 
 case "$1" in
-  start)
-    start
-    ;;
-  stop)
-    stop
-    ;;
-  uninstall)
-    uninstall
-    ;;
-  retart)
-    stop
-    start
-    ;;
-  *)
-    echo "Usage: $0 {start|stop|restart|uninstall}"
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	uninstall)
+		uninstall
+		;;
+	retart)
+		stop
+		start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|uninstall}"
 esac
 
