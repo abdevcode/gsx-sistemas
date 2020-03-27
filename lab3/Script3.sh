@@ -55,5 +55,5 @@ for proces in $(lastcomm); do
 	fi
 	let i=$i+1
 done
-service acct stop
+service acct start
 
