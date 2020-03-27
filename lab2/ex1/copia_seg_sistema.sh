@@ -34,8 +34,7 @@ up_time=$(uptime -s)
 udate_start=$(date -d "$up_time" +%s) # Hora UNIX de la fecha 
 
 # Directorios que queremos guardar separados por espacio en blanco
-#dir_save="/usr /home"
-dir_save="/test"
+dir_save="/usr /home"
 
 for directori_busca in $dir_save; do
 	for ruta in $(find $directori_busca -type d -name ".*" -prune -o -type f \! -name ".*" -print); do
