@@ -23,7 +23,9 @@ mes_actual=$(echo -n ${mes_actual:0:1} | tr '[:lower:]' '[:upper:]' ; echo ${mes
 #Obtinc els processos que 
 IFS=$'\n'
 i=0
+service acct stop
 for proces in $(lastcomm); do
+	
 	#Conto quantes paraules te la resposta
 	paraules=$(echo $proces | wc -w )
 	#Depenent de les paraules que tingui haure d'agafar de diferents posicions
@@ -53,4 +55,5 @@ for proces in $(lastcomm); do
 	fi
 	let i=$i+1
 done
+service acct stop
 
