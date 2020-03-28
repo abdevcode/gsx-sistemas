@@ -8,7 +8,10 @@
 #Data: 15/02/2020 
 #Versio: 1
 
-#Que fa l'script bla bla bla
+#Script que rep per paràmetre un fitxer. En aquest fitxer hi haurà el
+#path absolut de fitxers. L'script mostrarà per pantalla el path absolut del fitxer, seguit del
+#propietari, grup i permisos que té actualment aquest fitxer.
+
 
 #Verificacio de les opcions i dels parametres 
 if [ $# -eq 1 ]; then 
