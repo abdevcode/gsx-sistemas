@@ -1,5 +1,16 @@
 #! /bin/bash
 
+#Autors:
+#- Abderrahim Talhaoui
+#- Oriol Manzanero Perez
+#- Ramon Donadeu Caballero
+
+#Data: 11/02/2020 
+#Versio: 1.2
+
+#Aquest script, crea les carpetes necesaries per als projectes, llegeix el fitxer passat per parametre i crea un grup amb les dades indicades dins el fitxer, tambe canvia els permisos de la carpeta del grup i modifiquem els permisos per defecte de la propia carpeta.
+
+
 #Verificacio de les opcions i dels parametres 
 if [ $# -eq 0 ]; then 
 	#Treiem error per canal stderr 
@@ -53,6 +64,7 @@ else
 					for usuari in $treb; do
 						usermod -a -G $nomprj $usuari
 					done
+					#Canviem els permisos i els permisos per defecte
 					chown $dnicap $direccio		
 					chmod 775 $direccio
 					setfacl -Rdm o::--x $direccio	

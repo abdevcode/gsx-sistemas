@@ -1,5 +1,16 @@
 #! /bin/bash
 
+#Autors:
+#- Abderrahim Talhaoui
+#- Oriol Manzanero Perez
+#- Ramon Donadeu Caballero
+
+#Data: 11/02/2020 
+#Versio: 1.2
+
+#Aquest script modifica el grup principal del usuari que executi el script al grup especificat per parametre, situant la consola a la carpeta del grup.
+
+
 #Verificacio de les opcions i dels parametres 
 if [ $# -eq 0 ]; then 
 	#Treiem error per canal stderr 

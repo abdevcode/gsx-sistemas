@@ -1,5 +1,16 @@
 #! /bin/bash
 
+#Autors:
+#- Abderrahim Talhaoui
+#- Oriol Manzanero Perez
+#- Ramon Donadeu Caballero
+
+#Data: 11/02/2020 
+#Versio: 1.2
+
+#Aquest script genera els usuaris llegint-los del fitxer passat per parametre amb una contrasenya per defecte "password"
+
+
 #Verificacio de les opcions i dels parametres 
 if [ $# -eq 0 ]; then 
 	#Treiem error per canal stderr 
