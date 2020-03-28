@@ -12,3 +12,29 @@ sudo mkfs /dev/sda6 -t ext2 # formatar una particio
 
 sudo mkfs.ext2 /dev/sda5 -m 10 -d /home
 
+
+==============================================
+Ex2
+Fuente:
+	https://debian-handbook.info/browse/es-ES/stable/sect.nfs-file-server.html
+	https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-18-04
+> Fer un servidor de nfs.
+	## SERVER ##
+	-- instalar el server
+	sudo apt-get install nfs-kernel-server
+	sudo apt-get install nfs-common
+	-- iniciar el server
+	systemctl start rpcbind nfs-server
+	systemctl enable rpcbind nfs-server
+	-- configurar recursos compartidos
+	# Como la ip del cliente es <192.168.1.166/24> vamos a configurar el recurso en base a esto
+	sudo vim /etc/exports
+	+ /share-dir	192.168.1.0/24(ro,sync,fsid=0,secure,root_squash)
+		
+> Fer un client de nfs.
+	-- instalar el cliente 
+	sudo apt install nfs-common
+	
+> Montar el sistema de fitxers del servidor en el client.
+	-- montar el sistema de ficheros: la ip del servidor es <192.168.1.171>
+	sudo mount 192.168.1.171:/share-dir /mnt  	
