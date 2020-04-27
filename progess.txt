@@ -1,0 +1,33 @@
+Router20:
+
+-Fer el procediment per associar NIC a Cables (jo he seguit la imatge)
+-sudo vi /etc/network/interfaces
+- afegir:
+	auto enp0s8
+	iface enp0s8 inet static
+	adress 203.0.113.1
+	netmask 255.255.255.252
+-sudo ifup enp0s8
+-sysctl net.ipv4.ip_forward=0
+
+He fet un ping a 203.0.113.1 i esta activada
+
+
+Bastio20:
+
+-sudo vi /etc/network/interfaces
+- afegir:
+	auto enp0s3
+	iface enp0s3 inet static
+	adress 203.0.113.3
+	netmask 255.255.255.252
+	gateway 203.0.113.1
+
+	auto enp0s8
+	iface enp0s8 inet static
+	adress 10.200.20.0
+	netmask 255.255.255.0	
+-sudo ifup enp0s8
+
+He fet un ping a les dos noves i estan activades
+
