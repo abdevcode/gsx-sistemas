@@ -8,9 +8,12 @@ Router20:
 	adress 203.0.113.1
 	netmask 255.255.255.252
 -sudo ifup enp0s8
--sysctl net.ipv4.ip_forward=0
+-sysctl net.ipv4.ip_forward=1
 
 He fet un ping a 203.0.113.1 i esta activada
+
+Passar arxius al router:
+	scp /Users/oriolmanzaneroperez/test.txt milax@192.168.1.86:/home/milax
 
 
 Bastio20:
@@ -30,4 +33,6 @@ Bastio20:
 -sudo ifup enp0s8
 
 He fet un ping a les dos noves i estan activades
+
+
 
