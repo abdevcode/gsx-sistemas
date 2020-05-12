@@ -5,10 +5,10 @@ Router20:
 - afegir:
 	auto enp0s8
 	iface enp0s8 inet static
-	adress 203.0.113.1
+	address 203.0.113.1
 	netmask 255.255.255.252
 -sudo ifup enp0s8
--sysctl net.ipv4.ip_forward=1
+-sudo sysctl net.ipv4.ip_forward=1
 
 He fet un ping a 203.0.113.1 i esta activada
 
@@ -22,7 +22,7 @@ Bastio20:
 - afegir:
 	auto enp0s3
 	iface enp0s3 inet static
-	adress 203.0.113.3
+	address 203.0.113.3
 	netmask 255.255.255.252
 	gateway 203.0.113.1
 
