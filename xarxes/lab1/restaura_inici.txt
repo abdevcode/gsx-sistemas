@@ -1,1 +1,7 @@
-De puta madrre
+- Dins /home/milax/router hi poseu el seguent codi:
+#! /bin/bash
+
+echo "Copiant configuracio"
+cp interfaces /etc/network/interfaces
+cp resolv.conf /etc/resolv.conf
+
