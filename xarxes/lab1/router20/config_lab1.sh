@@ -8,7 +8,7 @@ fi
 . ./def_interficies.sh
 
 linies=$(cat /etc/network/interfaces | wc -l)
-if [ $linies -lt 7]; then
+if [ $linies -lt 7 ]; then
     echo " " >> /etc/network/interfaces
 fi
 
