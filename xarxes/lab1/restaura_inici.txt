@@ -1,3 +1,4 @@
+Esto tampoco es
 - Dins /home/milax/router hi poseu el seguent codi:
 #! /bin/bash
 
