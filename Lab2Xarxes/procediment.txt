@@ -1,0 +1,16 @@
+Bastió:
+
+Mirar si tenim el paquet Dhcp-server
+	Si el tenim perfecte, sino l'hem d'instalar.
+	Per sintalar el paquet podem fer el sistema que explica al correu que es:
+
+	sudo cd /var/cache/apt
+	sudo rm -f archives
+	sudo ln -s /home/milax/archives
+
+	Al fer download only un cop el paquet es descarregarà aqui i ja e tindrem per 		instalar els propers cops.
+
+Editar  /etc/dhcp/dhcpd.conf
+	
+Editar /etc/default/isc-dhcp-server
+	en aquest fitxer hem de posar que escolti les interficies enp0s3 i enp0s8 
