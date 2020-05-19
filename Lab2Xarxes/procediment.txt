@@ -11,6 +11,19 @@ Mirar si tenim el paquet Dhcp-server
 	Al fer download only un cop el paquet es descarregarà aqui i ja e tindrem per 		instalar els propers cops.
 
 Editar  /etc/dhcp/dhcpd.conf
+
+	subnet 10.200.20.0 netmask 255.255.255.0{
+	  range 10.200.20.128 10.200.20.192;
+	  option broadcast-address 20.200.20.1
+	}
+
+	host Intern20 {
+	  hardware ethernet 08:00:27:79:bd:9a;
+	  fixed-address 10.200.20.2;
+	}
+
 	
 Editar /etc/default/isc-dhcp-server
 	en aquest fitxer hem de posar que escolti les interficies enp0s3 i enp0s8 
+
+	INTERFACESv4="enp0s3 enp0s8"
