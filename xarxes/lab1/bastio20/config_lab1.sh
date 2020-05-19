@@ -24,7 +24,7 @@ sed -i "9i gateway 203.0.113.1" /etc/network/interfaces
 #Modificar el interfaces enp0s8
 sed -i "10i auto enp0s8" /etc/network/interfaces
 sed -i "11i iface enp0s8 inet static" /etc/network/interfaces
-sed -i "12i address 10.200.20.0" /etc/network/interfaces
+sed -i "12i address 10.200.20.1" /etc/network/interfaces
 sed -i "13i netmask 255.255.255.0" /etc/network/interfaces
 
 ifup $IFISP
