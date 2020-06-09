@@ -5,25 +5,26 @@ Mirar si tenim el paquet Dhcp-server
 	Per sintalar el paquet podem fer el sistema que explica al correu que es:
 
 	sudo cd /var/cache/apt
-	sudo rm -f archives
-	sudo ln -s /home/milax/archives
+	sudo rm -fr archives
+	sudo ln -s /home/milax/archives (s0ha de tindre el directori a milax creat)
 
-	Al fer download only un cop el paquet es descarregarà aqui i ja e tindrem per 		instalar els propers cops.
+	Al fer download only un cop el paquet es descarregarà aqui i ja e tindrem per instalar els propers cops.
 
 Editar  /etc/dhcp/dhcpd.conf
 
-	subnet 10.200.20.0 netmask 255.255.255.0{
-	  range 10.200.20.128 10.200.20.192;
-	  option broadcast-address 20.200.20.1
+	subnet 10.200.36.0 netmask 255.255.255.0 {
+	  range 10.200.36.128 10.200.36.192;
+	  option broadcast-address 10.200.36.255;
+	  option routers 10.200.36.1;
 	}
 
 	host Intern20 {
 	  hardware ethernet 08:00:27:79:bd:9a;
-	  fixed-address 10.200.20.2;
+	  fixed-address 10.200.36.2;
 	}
 
 	
 Editar /etc/default/isc-dhcp-server
-	en aquest fitxer hem de posar que escolti les interficies enp0s3 i enp0s8 
+	en aquest fitxer hem de posar que escolti les interficies enp0s8 
 
-	INTERFACESv4="enp0s3 enp0s8"
+	INTERFACESv4="enp0s8"
