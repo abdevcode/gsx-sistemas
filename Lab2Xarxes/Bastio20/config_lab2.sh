@@ -1,7 +1,9 @@
 #!/bin/sh
 
 dpkg-query --show isc-dhcp-server >/dev/null 2>$1
-
+cd /var/cache/apt
+rm -fr archives
+ln -s /home/milax/archives
 if [ $? -ne 0 ]; then
     apt install isc-dhcp-server
 fi
