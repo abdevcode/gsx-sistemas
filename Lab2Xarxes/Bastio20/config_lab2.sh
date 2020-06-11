@@ -1,5 +1,12 @@
 #!/bin/sh
 
+if [ ! -x def_interficies.sh ]; then
+    echo Error: no hi ha les interificies configurades
+    exit
+fi
+
+. ./def_interficies.sh
+
 dpkg-query --show isc-dhcp-server >/dev/null 2>$1
 cd /var/cache/apt
 rm -fr archives
@@ -16,7 +23,7 @@ subnet 10.200.36.0 netmask 255.255.255.0 {
 }
 
 host Intern20 {
-    hardware ethernet 08:00:27:79:bd:9a;
+    hardware ethernet $MacIfINT;
     fixed-address 10.200.36.2;
 }" > /etc/dhcp/dhcpd.conf
 
