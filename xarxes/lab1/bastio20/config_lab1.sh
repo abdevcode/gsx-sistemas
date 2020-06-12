@@ -16,9 +16,9 @@ ifdown $IFISP
 
 #Modificar el interfaces enp0s3
 sed -i 's/iface enp0s3 inet dhcp/iface enp0s3 inet static/g' /etc/network/interfaces
-sed -i "7i address 203.0.113.2" /etc/network/interfaces
+sed -i "7i address 203.0.113.9" /etc/network/interfaces
 sed -i "8i netmask 255.255.255.252" /etc/network/interfaces
-sed -i "9i gateway 203.0.113.1" /etc/network/interfaces
+sed -i "9i gateway 203.0.113.10" /etc/network/interfaces
 
 
 #Modificar el interfaces enp0s8
