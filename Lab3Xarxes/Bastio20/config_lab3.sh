@@ -116,10 +116,10 @@ echo "
 1	IN	PTR	ns.privat36.gsx.
 
 ;Altres maquines
-2	IN	PTR	noc.private36.gsx.
-129	IN	PTR	PC129.privat36.gsx.
-130	IN	PTR	PC130.privat36.gsx.
-11	IN	PTR	correu.privat36.gsx.				
+2.36.200	IN	PTR	noc.private36.gsx.
+129.36.200	IN	PTR	PC129.privat36.gsx.
+130.36.200	IN	PTR	PC130.privat36.gsx.
+11.36.200	IN	PTR	correu.privat36.gsx.				
 "  > /etc/bind/db.10.200.36
 
 echo "
