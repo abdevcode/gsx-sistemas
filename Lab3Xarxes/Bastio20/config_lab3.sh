@@ -74,7 +74,7 @@ echo "
             604800)			;Negaive Cache TTL
 ;
 @	IN	NS	ns
-    IN  MX  10  correu.inside36.gsx.
+    IN  MX  10  correu.privat36.gsx.
 ns	IN	A	10.200.36.1
 
 ;Altres maquines
@@ -113,10 +113,10 @@ echo "
             604800)			;Negaive Cache TTL
 ;
 @	IN	NS	ns.privat36.gsx.
-1	IN	PTR	ns.privat36.gsx.
+1.36.200	IN	PTR	ns.privat36.gsx.
 
 ;Altres maquines
-2.36.200	IN	PTR	noc.private36.gsx.
+2.36.200	IN	PTR	noc.privat36.gsx.
 129.36.200	IN	PTR	PC129.privat36.gsx.
 130.36.200	IN	PTR	PC130.privat36.gsx.
 11.36.200	IN	PTR	correu.privat36.gsx.				
@@ -124,7 +124,7 @@ echo "
 
 echo "
 options {
-    directory \"/var/cache/bind\"
+    directory \"/var/cache/bind\";
     forwarders{
         192.168.1.1;
     };
