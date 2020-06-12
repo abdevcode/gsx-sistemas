@@ -15,7 +15,7 @@ fi
 #Modificar el interfaces
 sed -i "7i auto enp0s8" /etc/network/interfaces
 sed -i "8i iface enp0s8 inet static" /etc/network/interfaces
-sed -i "9i address 203.0.113.1" /etc/network/interfaces
+sed -i "9i address 203.0.113.10" /etc/network/interfaces
 sed -i "10i netmask 255.255.255.252" /etc/network/interfaces
 
 ifup $IFINSIDE

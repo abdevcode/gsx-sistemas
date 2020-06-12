@@ -1,0 +1,143 @@
+Bastió:
+
+	Mirem si tenim instalats els paquets bind9, bind9-doc dnsutils, sino els instalem
+
+	Configurem DNS
+		fitxer named.conf.local
+			Afegim les zones i les seves inverses: 
+
+				zone "inside36.gsx" {
+					type master; 
+					file "db.inside36.gsx"; 
+				};
+
+				zone "privat36.gsx" {
+					type master; 
+					file "db.inside36.gsx"; 	
+				};
+
+				zone "113.0.203.in-addr.arpa" {
+					type master;
+					file "db.203.0.113";
+				};
+
+				zone "36.200.10.in-addr.arpa" {
+					type master;
+					file "db.10.200.36";
+				};
+
+		fitxer named.conf.options (global)
+
+				options {
+					directory "/var/cache/bind";
+					forwarders{
+						8.8.8.8;
+						8.8.4.4;
+					};
+					dnssec-validation false;
+					dnssec-enable yes;
+					dnssec-lookaside auto;
+					allow-transfer { none; };
+					allow-query-cache { none;};
+					allow-recursion{internals;};
+					allow-query{internals;};
+				};
+
+		fitxers de zona (situats a /etc/bind):
+
+			fitxer db.inside36.gsx:
+
+				$TTL 604800
+				@	IN	SOA	ns.inside36.gsx.	root.ns.inside36.gsx	(
+							1			;Serial
+							604800			;Refresh
+							86400			;Retry
+							2419200			;Expire
+							604800)			;Negaive Cache TTL
+				;
+				@	IN	NS	ns
+				ns	IN	A	203.0.113.2
+
+				router	IN	A	203.0.113.1
+
+			fitxer db.privat36.gsx:	
+				
+				$TTL 604800
+				@	IN	SOA	ns.privat36.gsx.	root.ns.privat36.gsx	(
+							1			;Serial
+							604800			;Refresh
+							86400			;Retry
+							2419200			;Expire
+							604800)			;Negaive Cache TTL
+				;
+				@	IN	NS	ns
+				ns	IN	A	10.200.36.1
+				
+				;Altres maquines
+				noc	IN	A	10.200.36.2
+				PC129	IN	A	10.200.36.129
+				PC130	IN	A	10.200.36.130
+				correu	IN	A	10.200.36.11
+				pop3	CNAME		correu
+				smpt	CNAME		correu
+			
+			fitxer db.203.0.113:
+	
+				$TTL 604800
+				@	IN	SOA	ns.inside36.gsx.	root.ns.inside36.gsx	(
+							2			;Serial
+							604800			;Refresh
+							86400			;Retry
+							2419200			;Expire
+							604800)			;Negaive Cache TTL
+				;
+				@	IN	NS	ns.inside36.gsx.
+				2	IN	PTR	ns.inside36.gsx.
+			
+				1	IN	PTR	router.inside36.gsx.
+				
+			fitxer db.10.200.36:
+	
+				$TTL 604800
+				@	IN	SOA	ns.privat36.gsx.	root.ns.privat36.gsx	(
+							2			;Serial
+							604800			;Refresh
+							86400			;Retry
+							2419200			;Expire
+							604800)			;Negaive Cache TTL
+				;
+				@	IN	NS	ns.privat36.gsx.
+				1	IN	PTR	ns.privat36.gsx.
+				
+				;Altres maquines
+				2	IN	PTR	noc.private36.gsx.
+				129	IN	PTR	PC129.privat36.gsx.
+				130	IN	PTR	PC130.privat36.gsx.
+				11	IN	PTR	correu.privat36.gsx.
+				
+
+				
+
+	
+
+	Editem el dhcpd.conf
+
+		subnet 10.200.36.0 netmask 255.255.255.0 {
+	 		range 10.200.36.128 10.200.36.192;
+	  		option broadcast-address 10.200.36.255;
+			option domain-name-servers 10.200.36.1;
+			option domain-name "privat36.gsx";
+	 		option routers 10.200.36.1;
+			default-lease-time 7200
+			max-lease-time 7200 
+		}
+
+		subnet 203.0.113.8 netmask 255.255.255.252 {
+	 		range 203.0.113.0 203.0.113.1;
+			option domain-name-servers 1203.0.113.1;
+			option domain-name "inside36.gsx";
+	 		option routers 203.0.113.1;
+		}
+
+
+		
