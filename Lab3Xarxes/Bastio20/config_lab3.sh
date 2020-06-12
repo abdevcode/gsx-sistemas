@@ -20,6 +20,8 @@ if [ $? -ne 0 ]; then
     apt install dnsutils
 fi
 
+systemctl stop bind9
+
 echo "
 zone \"inside36.gsx\" {
 	type master; 
@@ -36,7 +38,7 @@ zone \"113.0.203.in-addr.arpa\" {
 	file \"/etc/bind/db.203.0.113\";
 };
 
-zone \"36.200.10.in-addr.arpa\" {
+zone \"10.in-addr.arpa\" {
 	type master;
 	file \"/etc/bind/db.10.200.36\";
 };
@@ -52,6 +54,7 @@ echo "
             604800)			;Negaive Cache TTL
 ;
 @	IN	NS  ns
+    IN  MX  10  correu.inside36.gsx.
 ns	IN	A	203.0.113.9
 
 correu  IN  A   203.0.113.11
@@ -71,6 +74,7 @@ echo "
             604800)			;Negaive Cache TTL
 ;
 @	IN	NS	ns
+    IN  MX  10  correu.inside36.gsx.
 ns	IN	A	10.200.36.1
 
 ;Altres maquines
@@ -120,7 +124,7 @@ echo "
 
 echo "
 options {
-    directory \"/var/cache/bind\";
+    directory \"/var/cache/bind\"
     forwarders{
         192.168.1.1;
     };
@@ -129,7 +133,7 @@ options {
 };
 " > /etc/bind/named.conf.options
 
-systemctl start bind9
+
 
 
 
