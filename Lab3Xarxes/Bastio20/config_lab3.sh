@@ -20,6 +20,7 @@ if [ $? -ne 0 ]; then
     apt install dnsutils
 fi
 
+
 echo "
 zone \"inside36.gsx\" {
 	type master; 
@@ -36,7 +37,7 @@ zone \"113.0.203.in-addr.arpa\" {
 	file \"/etc/bind/db.203.0.113\";
 };
 
-zone \"36.200.10.in-addr.arpa\" {
+zone \"10.in-addr.arpa\" {
 	type master;
 	file \"/etc/bind/db.10.200.36\";
 };
@@ -52,6 +53,7 @@ echo "
             604800)			;Negaive Cache TTL
 ;
 @	IN	NS  ns
+    IN  MX  10  correu.inside36.gsx.
 ns	IN	A	203.0.113.9
 
 correu  IN  A   203.0.113.11
@@ -71,6 +73,7 @@ echo "
             604800)			;Negaive Cache TTL
 ;
 @	IN	NS	ns
+    IN  MX  10  correu.privat36.gsx.
 ns	IN	A	10.200.36.1
 
 ;Altres maquines
@@ -109,13 +112,13 @@ echo "
             604800)			;Negaive Cache TTL
 ;
 @	IN	NS	ns.privat36.gsx.
-1	IN	PTR	ns.privat36.gsx.
+1.36.200	IN	PTR	ns.privat36.gsx.
 
 ;Altres maquines
-2	IN	PTR	noc.private36.gsx.
-129	IN	PTR	PC129.privat36.gsx.
-130	IN	PTR	PC130.privat36.gsx.
-11	IN	PTR	correu.privat36.gsx.				
+2.36.200	IN	PTR	noc.privat36.gsx.
+129.36.200	IN	PTR	PC129.privat36.gsx.
+130.36.200	IN	PTR	PC130.privat36.gsx.
+11.36.200	IN	PTR	correu.privat36.gsx.				
 "  > /etc/bind/db.10.200.36
 
 echo "
@@ -129,7 +132,31 @@ options {
 };
 " > /etc/bind/named.conf.options
 
-systemctl start bind9
+echo "
+subnet 10.200.36.0 netmask 255.255.255.0 {
+    range 10.200.36.128 10.200.36.192;
+    option broadcast-address 10.200.36.255;
+    option domain-name-servers 10.200.36.1;
+    option domain-name \"privat36.gsx\";
+    option routers 10.200.36.1;
+    default-lease-time 7200;
+    max-lease-time 7200;
+    deny unknown-clients; 
+}
 
+host Intern20 {
+    hardware ethernet $MacIfINT;
+    fixed-address 10.200.36.2;
+    default-lease-time -1;
+}
+" > /etc/dhcp/dhcpd.conf
 
+echo "
+nameserver 127.0.0.1
+search privat36.gsx inside36.gsx
+domain inside36.gsx
+domain privat36.gsx
+" > /etc/resolv.conf
 
+systemctl restart isc-dhcp-server
+systemctl restart bind9
