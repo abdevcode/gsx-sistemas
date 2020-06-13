@@ -20,7 +20,6 @@ if [ $? -ne 0 ]; then
     apt install dnsutils
 fi
 
-systemctl stop bind9
 
 echo "
 zone \"inside36.gsx\" {
@@ -133,7 +132,31 @@ options {
 };
 " > /etc/bind/named.conf.options
 
+echo "
+subnet 10.200.36.0 netmask 255.255.255.0 {
+    range 10.200.36.128 10.200.36.192;
+    option broadcast-address 10.200.36.255;
+    option domain-name-servers 10.200.36.1;
+    option domain-name \"privat36.gsx\";
+    option routers 10.200.36.1;
+    default-lease-time 7200;
+    max-lease-time 7200;
+    deny unknown-clients; 
+}
 
+host Intern20 {
+    hardware ethernet $MacIfINT;
+    fixed-address 10.200.36.2;
+    default-lease-time -1;
+}
+" > /etc/dhcp/dhcpd.conf
 
+echo "
+nameserver 127.0.0.1
+search privat36.gsx inside36.gsx
+domain inside36.gsx
+domain privat36.gsx
+" > /etc/resolv.conf
 
-
+systemctl restart isc-dhcp-server
+systemctl restart bind9
