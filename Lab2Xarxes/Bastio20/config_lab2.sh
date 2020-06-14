@@ -7,11 +7,14 @@ fi
 
 . ./def_interficies.sh
 
-dpkg-query --show isc-dhcp-server >/dev/null 2>$1
+ins=$(dpkg -s isc-dhcp-server | grep "Status: install ok installed" | wc -l)
 cd /var/cache/apt
 rm -fr archives
 ln -s /home/milax/archives
-if [ $? -ne 0 ]; then
+if [ $ins -eq 1 ]; then
+    echo "El paquet esta instalat"
+else
+    echo "Es procedira a instalar el paquet"
     apt install isc-dhcp-server
 fi
 
@@ -19,7 +22,7 @@ echo "
 subnet 10.200.36.0 netmask 255.255.255.0 {
     range 10.200.36.128 10.200.36.192;
     option broadcast-address 10.200.36.255;
-    option routers 10.200.36.1;
+    option routers 10.200.36.1';
 }
 
 host Intern20 {
