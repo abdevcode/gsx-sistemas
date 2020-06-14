@@ -22,7 +22,7 @@ echo "
 subnet 10.200.36.0 netmask 255.255.255.0 {
     range 10.200.36.128 10.200.36.192;
     option broadcast-address 10.200.36.255;
-    option routers 10.200.36.1';
+    option routers 10.200.36.1;
 }
 
 host Intern20 {
