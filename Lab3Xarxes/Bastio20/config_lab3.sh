@@ -7,16 +7,16 @@ fi
 
 . ./def_interficies.sh
 
-dpkg-query --show bind9 >/dev/null 2>$1
-if [ $? -ne 0 ]; then
+ins=$(dpkg -s bind9 | grep "Status: install ok installed" | wc -l)
+if [ $ins -ne 1 ]; then
     apt install bind9
 fi
-dpkg-query --show bind9-doc >/dev/null 2>$1
-if [ $? -ne 0 ]; then
+ins=$(dpkg -s bind9-doc | grep "Status: install ok installed" | wc -l)
+if [ $ins -ne 1 ]; then
     apt install bind9-doc
 fi
-dpkg-query --show dnsutils >/dev/null 2>$1
-if [ $? -ne 0 ]; then
+ins=$(dpkg -s dnsutils | grep "Status: install ok installed" | wc -l)
+if [ $ins -ne 1 ]; then
     apt install dnsutils
 fi
 
@@ -128,6 +128,7 @@ options {
         192.168.1.1;
     };
     dnssec-validation false;
+    allow-transfer{127.0.0.1;};
     allow-recursion{10.200.36.0/24;};
 };
 " > /etc/bind/named.conf.options
