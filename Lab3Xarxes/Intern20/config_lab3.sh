@@ -1,5 +1,9 @@
 #!/bin/sh
 
+echo "Per realitzar aquesta part primer has de fer la configuració DNS del Bastió"
+echo "Realitza la configuració DNS (si no ho has fet) i prem ENTER..."
+read dummy
+
 echo "
 #!/bin/sh
 # Filename:	 /etc/dhcp/dhclient-exit-hooks.d/hostname
