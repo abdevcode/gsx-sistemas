@@ -24,6 +24,7 @@ iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 #Queries DNS
 iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 53 -j ACCEPT
 
 #Conexions sortitns http https
 iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
@@ -41,6 +42,7 @@ iptables -A INPUT -p icmp --icmp-type echo-request --match limit --limit 5/m --l
 
 #Forwards Bastio
 iptables -A FORWARD -p udp -i $IFINSIDE -o $IFISP --dport 53 -j ACCEPT
+iptables -A FORWARD -p tcp -i $IFINSIDE -o $IFISP --dport 53 -j ACCEPT
 iptables -A FORWARD -p tcp -i $IFINSIDE -o $IFISP --dport 80 -j ACCEPT
 iptables -A FORWARD -p tcp -i $IFINSIDE -o $IFISP --dport 443 -j ACCEPT
 iptables -A FORWARD -p tcp -i $IFINSIDE -o $IFISP --dport 22 -j ACCEPT
