@@ -6,8 +6,8 @@ iptables --flush
 iptables -t nat --flush
 
 #Default
-iptables -P OUTPUT ACCEPT 
-iptables -P INPUT ACCEPT
+iptables -P OUTPUT DROP 
+iptables -P INPUT DROP
 iptables -P FORWARD DROP
 
 #Loopback
@@ -37,7 +37,7 @@ iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
 
 #Limitar entrades echo-request a 5 per minut
-iptables -A INPUT -p icmp --icmp-type echo-request --match limit --limit 5/m --limit-burst 10 -j DROP
+iptables -A INPUT -p icmp --icmp-type echo-request --match limit --limit 5/m --limit-burst 10 -j ACCEPT
 
 #Forwards Bastio
 iptables -A FORWARD -p udp -i $IFINSIDE -o $IFISP --dport 53 -j ACCEPT
