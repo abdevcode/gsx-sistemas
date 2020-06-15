@@ -1,0 +1,20 @@
+SALVAR LES REGLES:
+
+sudo iptables-save > /home/milax/iptables.txt
+
+
+ROUTER:
+
+	iptables --flush
+	iptables -t nat --flush
+
+	iptables -A INPUT -i lo -j ACCEPT
+	iptables -A OUTPUT -o lo -j ACCEPT	
+
+	SNAT:
+
+	iptables -t nat -A POSTROUTING -o enp0s3 --to-source 192.168.1.184(*)
+
+		*Per saber quina ip posar aqui podem fer un:
+		sudo ifconfig enp0s3 | grep "inet " | awk '{print $2}'
+
