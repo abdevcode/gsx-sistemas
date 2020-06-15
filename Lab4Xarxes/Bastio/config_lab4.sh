@@ -4,7 +4,7 @@ iptables --flush
 iptables -t nat --flush
 
 #Default
-iptables -P OUTPUT ACCEPT 
+iptables -P OUTPUT DROP 
 iptables -P INPUT DROP
 iptables -P FORWARD DROP
 
