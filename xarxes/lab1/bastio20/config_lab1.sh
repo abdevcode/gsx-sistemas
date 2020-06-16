@@ -23,8 +23,6 @@ sed -i "13i netmask 255.255.255.0" /etc/network/interfaces
 ifup enp0s3
 ifup enp0s8
 
-. ./config_lab4.sh
-
 
 
 
