@@ -129,7 +129,7 @@ options {
     };
     dnssec-validation false;
     allow-transfer{127.0.0.1;};
-    allow-recursion{10.200.36.0/24;};
+    allow-recursion{10.200.36.0/24;127.0.0.1;};
 };
 " > /etc/bind/named.conf.options
 
