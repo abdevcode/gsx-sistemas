@@ -4,11 +4,17 @@ Mirar si tenim el paquet Dhcp-server
 	Si el tenim perfecte, sino l'hem d'instalar.
 	Per sintalar el paquet podem fer el sistema que explica al correu que es:
 
-	sudo cd /var/cache/apt
+	cd /var/cache/apt
 	sudo rm -fr archives
+	mkdir /home/milax/archives
 	sudo ln -s /home/milax/archives (s0ha de tindre el directori a milax creat)
 
-	Al fer download only un cop el paquet es descarregarà aqui i ja e tindrem per instalar els propers cops.
+	# Al fer download only un cop el paquet es descarregarà aqui i ja e tindrem per instalar els propers cops.
+
+	sudo apt-get install --download-only isc-dhcp-server
+	sudo apt-get install --download-only bind9
+	sudo apt-get install --download-only bind9-doc
+	sudo apt-get install --download-only dnsutils
 
 Editar  /etc/dhcp/dhcpd.conf
 
