@@ -149,6 +149,7 @@ host Intern20 {
     hardware ethernet $MacIfINT;
     fixed-address 10.200.36.2;
     default-lease-time -1;
+    option host-name \"Intern20\";
 }
 " > /etc/dhcp/dhcpd.conf
 
@@ -159,5 +160,11 @@ domain inside36.gsx
 domain privat36.gsx
 " > /etc/resolv.conf
 
+echo "
+Bastio20
+" > /etc/hostname
+sed -i 's/GSX/Bastio20/g' /etc/hosts
+
+hostname Bastio20
 systemctl restart isc-dhcp-server
 systemctl restart bind9

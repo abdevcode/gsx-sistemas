@@ -29,3 +29,10 @@ hostname \${new_host_name}
 
 chmod u+x /etc/dhcp/dhclient-exit-hooks.d/hostname
 systemctl restart networking
+
+hostname Intern20
+echo "
+Intern20
+" > /etc/hostname
+
+sed -i 's/GSX/Intern20/g' /etc/hosts
