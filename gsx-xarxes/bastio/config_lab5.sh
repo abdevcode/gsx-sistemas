@@ -25,8 +25,7 @@ maximum_object_size 4 MB
 # Para cargar la nueva configuracion (hacerla efectiva)
 squid -k reconfigure
 
-# Iniciamos el servicio
-systemctl start squid
-systemctl enable squid
+systemctl restart squid
+
 
 

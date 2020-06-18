@@ -1,3 +1,5 @@
 #!/bin/bash
 
-cp links.cfd /home/milax/.links2
+cp links.cfg /home/milax/.links2
+chgrp milax links.cfg
+chown milax links.cfg

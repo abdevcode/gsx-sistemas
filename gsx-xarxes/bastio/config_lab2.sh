@@ -30,5 +30,6 @@ host Intern20 {
     fixed-address 10.200.36.2;
 }" > /etc/dhcp/dhcpd.conf
 
+
 sed -i 's/INTERFACESv4=""/INTERFACESv4="enp0s8"/g' /etc/default/isc-dhcp-server
 systemctl restart isc-dhcp-server

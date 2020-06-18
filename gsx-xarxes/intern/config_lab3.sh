@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ./def_interficies.sh
+
 echo "
 #!/bin/sh
 # Filename:	 /etc/dhcp/dhclient-exit-hooks.d/hostname
@@ -32,3 +34,5 @@ Intern20
 " > /etc/hostname
 
 sed -i 's/GSX/Intern20/g' /etc/hosts
+
+ifup $IFINT

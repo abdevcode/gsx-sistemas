@@ -18,6 +18,7 @@ sed -i "8i iface enp0s8 inet static" /etc/network/interfaces
 sed -i "9i address 203.0.113.10" /etc/network/interfaces
 sed -i "10i netmask 255.255.255.252" /etc/network/interfaces
 
+ifup $IFISP
 ifup $IFINSIDE
 sysctl net.ipv4.ip_forward=1
 
