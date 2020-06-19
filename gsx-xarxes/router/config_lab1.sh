@@ -7,6 +7,14 @@ fi
 
 . ./def_interficies.sh
 
+if [ ! -f "interfaces.bak" ]; then
+    cp /etc/network/interfaces ./interfaces.bak
+fi
+
+if [ ! -f "resolv.confbak" ]; then
+    cp /etc/resolv.conf ./resolv.confbak
+fi
+
 linies=$(cat /etc/network/interfaces | wc -l)
 if [ $linies -lt 7 ]; then
     echo " " >> /etc/network/interfaces
