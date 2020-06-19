@@ -7,9 +7,6 @@ if [ $ins -ne 1 ]; then
     cp /etc/squid/squid.conf /etc/squid/squid.conf.bak	
 fi
 
-# Recuperamos el fichero de backup
-cp /etc/squid/squid.conf.bak /etc/squid/squid.conf
-
 sed -i 's/http_port 3128/http_port 10.200.36.1:3128/g' /etc/squid/squid.conf
 sed -i 's/http_access deny all/ /g' /etc/squid/squid.conf
 # Afegim al final del fitxer la nostra configuracio

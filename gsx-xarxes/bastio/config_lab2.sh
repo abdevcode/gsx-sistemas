@@ -7,6 +7,7 @@ fi
 
 . ./def_interficies.sh
 
+
 ins=$(dpkg -s isc-dhcp-server | grep "Status: install ok installed" | wc -l)
 cd /var/cache/apt
 rm -fr archives
@@ -16,7 +17,12 @@ if [ $ins -eq 1 ]; then
 else
     echo "Es procedira a instalar el paquet"
     apt install isc-dhcp-server
+    
+    # Realitzem les copies de backup
+    cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
+    cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
 fi
+
 
 echo "
 subnet 10.200.36.0 netmask 255.255.255.0 {

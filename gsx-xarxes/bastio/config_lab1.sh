@@ -1,5 +1,13 @@
 #!/bin/sh
 
+
+# Realitzem les copies de seguretat abans  
+if [ -f /etc/network/interfaces ] [ ! -f /etc/network/interfaces.bak ]; then
+    cp /etc/network/interfaces /etc/network/interfaces.bak
+fi
+
+
+
 linies=$(cat /etc/network/interfaces | wc -l)
 if [ $linies -lt 7 ]; then
     echo " " >> /etc/network/interfaces

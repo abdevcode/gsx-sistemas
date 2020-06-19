@@ -10,15 +10,26 @@ fi
 ins=$(dpkg -s bind9 | grep "Status: install ok installed" | wc -l)
 if [ $ins -ne 1 ]; then
     apt install bind9
+
+    cp /etc/bind/named.conf.local /etc/bind/named.conf.local.bak
+    cp /etc/bind/named.conf.options /etc/bind/named.conf.options.bak
+    cp /etc/resolv.conf /etc/resolv.conf.bak
+    cp /etc/hostname /etc/hostname.bak
+    cp /etc/hosts /etc/hosts.bak
+
 fi
+
 ins=$(dpkg -s bind9-doc | grep "Status: install ok installed" | wc -l)
 if [ $ins -ne 1 ]; then
     apt install bind9-doc
 fi
+
 ins=$(dpkg -s dnsutils | grep "Status: install ok installed" | wc -l)
 if [ $ins -ne 1 ]; then
     apt install dnsutils
 fi
+
+
 
 
 echo "
