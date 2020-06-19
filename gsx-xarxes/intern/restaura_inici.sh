@@ -8,6 +8,6 @@ if [ -f "dhclienthostname.bak" ]; then
     cp dhclienthostname.bak ~/etc/dhcp/dhclient-exit-hooks.d/hostname
 fi
 
-if [-f "hosts.bak" ]; then
+if [ -f "hosts.bak" ]; then
     cp hosts.bak ~/etc/hosts
 fi
