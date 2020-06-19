@@ -2,7 +2,7 @@
 
 . ./def_interficies.sh
 
-if [ ! -f "./dhclienthostname.bak" ]; then
+if [ ! -f "dhclienthostname.bak" ]; then
     cp /etc/dhcp/dhclient-exit-hooks.d/hostname ./dhclienthostname.bak
 fi
 
