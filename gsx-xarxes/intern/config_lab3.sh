@@ -2,6 +2,18 @@
 
 . ./def_interficies.sh
 
+if [ ! -f "./dhclienthostname.bak" ]; then
+    cp /etc/dhcp/dhclient-exit-hooks.d/hostname ./dhclienthostname.bak
+fi
+
+if [ ! -f "hosts.bak" ]; then
+    cp /etc/hostname ./hostname.bak
+fi
+
+if [ ! -f "hosts.bak" ]; then
+    cp /etc/hosts ./hosts.bak
+fi
+
 echo "
 #!/bin/sh
 # Filename:	 /etc/dhcp/dhclient-exit-hooks.d/hostname
@@ -34,5 +46,6 @@ Intern20
 " > /etc/hostname
 
 sed -i 's/GSX/Intern20/g' /etc/hosts
+
 
 ifup $IFINT
