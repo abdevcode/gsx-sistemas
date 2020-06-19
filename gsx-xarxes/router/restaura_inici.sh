@@ -1,4 +1,4 @@
-#!bin/sh
+#!/bin/sh
 
 if [ -f "interfaces.bak" ]; then
     cp interfaces.bak /etc/network/interfaces
