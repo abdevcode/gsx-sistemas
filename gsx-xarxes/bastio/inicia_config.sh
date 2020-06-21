@@ -17,6 +17,7 @@ echo "config_lab2: "
 sh config_lab2.sh
 
 # LAB 3
+echo "AVIS! --> Primer s'ha d'executar el lab1 del router"
 echo "config_lab3: "
 sh config_lab3.sh
 

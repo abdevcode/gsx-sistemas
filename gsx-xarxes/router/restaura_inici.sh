@@ -1,21 +1,21 @@
 #!/bin/sh
 
-if [ -f "interfaces.bak" ]; then
-    cp interfaces.bak /etc/network/interfaces
+if [ -f "/etc/network/interfaces.bak" ]; then
+    cp /etc/network/interfaces.bak /etc/network/interfaces
 fi
 
-if [ -f "resolv.confbak" ]; then
-    cp resolv.confbak /etc/resolv.conf
+if [ -f "/etc/resolv.conf.bak" ]; then
+    cp /etc/resolv.conf.bak /etc/resolv.conf
 fi
 
-if [ -f "dhclient.confbak" ]; then
-    cp dhclient.confbak /etc/dhcp/dhclient.conf
+if [ -f "/etc/dhcp/dhclient.conf.bak" ]; then
+    cp /etc/dhcp/dhclient.conf.bak /etc/dhcp/dhclient.conf
 fi
 
-if [ -f "hostname.bak" ]; then
-    cp hostname.bak /etc/hostname
+if [ -f "/etc/hostname.bak" ]; then
+    cp /etc/hostname.bak /etc/hostname
 fi
 
-if [ -f "hosts.bak" ]; then
-    cp hosts.bak /etc/hosts
+if [ -f "/etc/hosts.bak" ]; then
+    cp /etc/hosts.bak /etc/hosts
 fi

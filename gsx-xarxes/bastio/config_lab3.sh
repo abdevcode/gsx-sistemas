@@ -7,6 +7,23 @@ fi
 
 . ./def_interficies.sh
 
+
+
+
+# Bajamos el fichero resolv.conf del Router para obetener las IPs de los forwarders
+echo "Introdueix la contrasenya del Router per descarregar el fitxer resolv.conf"
+scp milax@203.0.113.10:/etc/resolv.conf.bak router.resolv.conf
+
+ip_frwd=$(cat router.resolv.conf | grep nameserver | awk '{print $2";"}')
+
+if [ -z "$ip_frwd" ]; then
+    echo "Error: No hi ha cap IP dels forwarders al fitxer, IP per defecte 192.168.1.1"
+    ip_frwd="192.168.1.1"
+fi
+
+
+
+
 ins=$(dpkg -s bind9 | grep "Status: install ok installed" | wc -l)
 if [ $ins -ne 1 ]; then
     apt install bind9
@@ -136,7 +153,7 @@ echo "
 options {
     directory \"/var/cache/bind\";
     forwarders{
-        192.168.1.1;
+        "$ip_frwd"
     };
     dnssec-validation false;
     allow-transfer{127.0.0.1;};

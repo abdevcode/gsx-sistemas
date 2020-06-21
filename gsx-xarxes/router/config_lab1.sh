@@ -7,12 +7,12 @@ fi
 
 . ./def_interficies.sh
 
-if [ ! -f "interfaces.bak" ]; then
-    cp /etc/network/interfaces ./interfaces.bak
+if [ ! -f "/etc/network/interfaces.bak" ]; then
+    cp /etc/network/interfaces /etc/network/interfaces.bak
 fi
 
-if [ ! -f "resolv.confbak" ]; then
-    cp /etc/resolv.conf ./resolv.confbak
+if [ ! -f "/etc/resolv.conf.bak" ]; then
+    cp /etc/resolv.conf /etc/resolv.conf.bak
 fi
 
 linies=$(cat /etc/network/interfaces | wc -l)
